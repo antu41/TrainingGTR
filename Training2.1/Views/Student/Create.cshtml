@@ -1,0 +1,122 @@
+﻿@model Training2._1.Models.Student
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<div class="float-start">
+    <a class="btn btn-sm btn-primary p-1 m-1" asp-action="Index" asp-controller="Student">Index</a>
+</div>
+
+
+<br />
+
+<form asp-action="Create">
+
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" autocomplete="off" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DptId" class="control-label">Department</label>
+        <select asp-for="DptId" class="form-control" asp-items="@ViewBag.Dept">
+            <option value="">-- Select Department --</option>
+        </select>
+        <span asp-validation-for="DptId" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<br />
+<div id="example-table"></div>
+
+@section Scripts
+{
+
+    <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            LoadData();
+        });
+
+        $('#example-table').on('click', '.btn-edit', function () {
+            var studentId = $(this).data('id');
+            // Assuming your edit method in the Student controller is named "Edit"
+            // You can change the URL and method type as per your application's routing
+            $.ajax({
+                url: '/Student/Edit?id=' + studentId,
+                success: function (response) { 
+                    var model = response.data;
+
+                    $("#Id").val(model.Id);
+                    $("#Name").val(model.Name);
+                    $("#Dpt").val(model.Dpt).trigger('change');
+
+
+                    //window.location.href = '/Student/Edit?id=' + studentId
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        $('#example-table').on('click', '.btn-delete', function () {
+            var studentId = $(this).data('id');
+            // Assuming your delete method in the Student controller is named "Delete"
+            // You can change the URL and method type as per your application's routing
+            $.ajax({
+                url: '/Student/Delete?id=' + studentId,
+                success: function (response) {
+                    LoadData();
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+
+
+        function LoadData() {
+            $.ajax({
+                url: '/Student/LoadData',
+                type: 'GET',
+                dataType: 'json',
+
+                success: function (response) {
+                    var table = new Tabulator("#example-table", {
+                        data: response,
+                        height: "400px",
+                        layout: "fitColumns",
+                        movableRows: true,
+                        addRowPos: "bottom",
+                        placeholder: "No Data Set",
+                        columns: [
+                            { title: "Id", field: "id", sorter: "number" },
+                            { title: "Name", field: "name", sorter: "string" },
+                            { title: "Department", field: "dpt.name" },
+                            { title: "Actions", formatter: function (cell) {
+                                var std = cell.getRow().getData().id;
+                                    return "<button class='btn-edit btn-primary btn-sm' data-id='" + cell.getRow().getData().id + "'>Edit</button>" +
+                                        "<button class='btn-delete btn-danger btn-sm' data-id='" + cell.getRow().getData().id + "'>Delete</button>";
+                                }
+                            }
+
+
+                        ]
+
+
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    </script>
+}
