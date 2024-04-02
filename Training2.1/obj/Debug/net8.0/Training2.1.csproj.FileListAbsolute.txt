@@ -406,3 +406,4 @@ D:\Antu\Training2.1\Training2.1\Training2.1\obj\Debug\net8.0\refint\Training2.1.
 D:\Antu\Training2.1\Training2.1\Training2.1\obj\Debug\net8.0\Training2.1.pdb
 D:\Antu\Training2.1\Training2.1\Training2.1\obj\Debug\net8.0\Training2.1.genruntimeconfig.cache
 D:\Antu\Training2.1\Training2.1\Training2.1\obj\Debug\net8.0\ref\Training2.1.dll
+D:\Antu\Training2.1\Training2.1\Training2.1\obj\Debug\net8.0\Training2.1.sourcelink.json
