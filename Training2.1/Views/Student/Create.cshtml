@@ -34,7 +34,6 @@
 
 @section Scripts
 {
-
     <link href="https://unpkg.com/tabulator-tables/dist/css/tabulator.min.css" rel="stylesheet">
     <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
 
@@ -79,19 +78,37 @@
 
 
         function LoadData() {
-            $.ajax({
-                url: '/Student/LoadData',
-                type: 'GET',
-                dataType: 'json',
 
-                success: function (response) {
                     var table = new Tabulator("#example-table", {
-                        data: response,
-                        height: "400px",
-                        layout: "fitColumns",
-                        movableRows: true,
-                        addRowPos: "bottom",
-                        placeholder: "No Data Set",
+                                       layout: "fitColumns",
+                                       minHeight: 400,
+                                       pagination: true,
+                                       movableColumns: true,
+                                       ajaxURL: '/Student/LoadData',
+                                       paginationMode: "remote",
+                                       paginationSize: 10,
+                                       paginationInitialPage: 1,
+                                       //paginationSizeSelector: [10, 25, 50, 100, true],
+                                       paginationCounter: "rows",
+                                       dataTree: true,
+                                       dataTreeStartExpanded: false,
+                                       ajaxConfig: "get",
+                                       ajaxContentType: "json",
+
+                                       ajaxResponse: function (url, params, response) {
+                                           table.setMaxPage(response.last_page);
+                                           console.log("response.last_page", response.last_page);
+
+                                           dataLoadExpense = response.std;
+                                            console.log("dataLoadExpense:", dataLoadExpense);
+
+                                           return {
+
+                                               data: dataLoadExpense,
+                                               last_page: response.last_page,
+
+                                           };
+                                       },
                         columns: [
                             { title: "Id", field: "id", sorter: "number" },
                             { title: "Name", field: "name", sorter: "string" },
@@ -108,11 +125,7 @@
 
 
                     });
-                },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        }
+                };
+            
     </script>
 }

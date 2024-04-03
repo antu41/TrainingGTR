@@ -37,10 +37,14 @@ namespace Training2._1.Controllers
             return View();
         }
 
-        public IActionResult LoadData()
+        [HttpGet]
+        public IActionResult LoadData(int page =1, decimal size = 10 )
         {
             var std = repo.WithDept().ToList();
-            return new JsonResult(std);
+            decimal TotalRecordCount = repo.GetAll().Count();
+            var PageCountabc = decimal.Parse((TotalRecordCount / size).ToString());
+            var PageCount = Math.Ceiling(PageCountabc);
+            return Json(new{ last_page = PageCount, std });
         }
 
         [HttpPost]
