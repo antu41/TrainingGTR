@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\Antu\\Training2.1\\Training2.1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\views\\student\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\views\\student\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\views\\student\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\views\\student\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\views\\student\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\views\\student\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|solutionrelative:training2.1\\views\\student\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F5FD1DA1-4C11-4D7E-A242-07533DA6E9DA}|Training2.1\\Training2.1.csproj|d:\\antu\\training2.1\\training2.1\\training2.1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,30 +94,29 @@
       "DocumentGroups": [
         {
           "DockedWidth": 292,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "StudentController.cs",
               "DocumentMoniker": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Controllers\\StudentController.cs",
               "RelativeDocumentMoniker": "Training2.1\\Controllers\\StudentController.cs",
               "ToolTip": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Controllers\\StudentController.cs",
               "RelativeToolTip": "Training2.1\\Controllers\\StudentController.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAAADAAAAAAAAAA",
+              "ViewState": "AQIAACUAAAAAAAAAAAAAACcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T04:31:04.904Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T04:31:04.904Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Create.cshtml",
               "DocumentMoniker": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Views\\Student\\Create.cshtml",
               "RelativeDocumentMoniker": "Training2.1\\Views\\Student\\Create.cshtml",
               "ToolTip": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Views\\Student\\Create.cshtml",
               "RelativeToolTip": "Training2.1\\Views\\Student\\Create.cshtml",
-              "ViewState": "AQIAAFAAAAAAAAAAAAAAAGIAAABQAAAA",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAAAFUAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-03-31T04:37:00.326Z",
               "EditorCaption": ""
@@ -136,7 +135,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Views\\Student\\Edit.cshtml",
               "RelativeDocumentMoniker": "Training2.1\\Views\\Student\\Edit.cshtml",
@@ -144,8 +143,7 @@
               "RelativeToolTip": "Training2.1\\Views\\Student\\Edit.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-31T07:36:04.958Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-31T07:36:04.958Z"
             },
             {
               "$type": "Document",
@@ -157,8 +155,7 @@
               "RelativeToolTip": "Training2.1\\Views\\Student\\Index.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-03-31T04:19:57.017Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-31T04:19:57.017Z"
             },
             {
               "$type": "Document",
@@ -186,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Student.cs",
               "DocumentMoniker": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\Models\\Student.cs",
               "RelativeDocumentMoniker": "Training2.1\\Models\\Student.cs",
@@ -194,8 +191,7 @@
               "RelativeToolTip": "Training2.1\\Models\\Student.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T03:07:08.109Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-28T03:07:08.109Z"
             },
             {
               "$type": "Document",

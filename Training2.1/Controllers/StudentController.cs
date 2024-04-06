@@ -38,14 +38,26 @@ namespace Training2._1.Controllers
         }
 
         [HttpGet]
-        public IActionResult LoadData(int page =1, decimal size = 10 )
+        public IActionResult LoadData(int page = 1, decimal size = 5)
         {
-            var std = repo.WithDept().ToList();
-            decimal TotalRecordCount = repo.GetAll().Count();
-            var PageCountabc = decimal.Parse((TotalRecordCount / size).ToString());
-            var PageCount = Math.Ceiling(PageCountabc);
-            return Json(new{ last_page = PageCount, std });
+            // Calculate the number of records to skip
+            var skipCount = (page - 1) * (int)size;
+
+            // Retrieve only the data for the current page
+            var std = repo.WithDept()
+                           .Skip(skipCount)
+                           .Take((int)size)
+                           .ToList();
+
+            // Calculate total record count
+            decimal totalRecordCount = repo.GetAll().Count();
+
+            // Calculate total number of pages
+            var pageCount = Math.Ceiling(totalRecordCount / size);
+
+            return Json(new { last_page = pageCount, std });
         }
+
 
         [HttpPost]
         public IActionResult Create(Student item)

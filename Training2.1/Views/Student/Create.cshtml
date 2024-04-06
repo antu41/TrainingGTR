@@ -79,53 +79,49 @@
 
         function LoadData() {
 
-                    var table = new Tabulator("#example-table", {
-                                       layout: "fitColumns",
-                                       minHeight: 400,
-                                       pagination: true,
-                                       movableColumns: true,
-                                       ajaxURL: '/Student/LoadData',
-                                       paginationMode: "remote",
-                                       paginationSize: 10,
-                                       paginationInitialPage: 1,
-                                       //paginationSizeSelector: [10, 25, 50, 100, true],
-                                       paginationCounter: "rows",
-                                       dataTree: true,
-                                       dataTreeStartExpanded: false,
-                                       ajaxConfig: "get",
-                                       ajaxContentType: "json",
+            var table = new Tabulator("#example-table", {
+                layout: "fitColumns",
+                //minHeight: 400,
+                pagination: true,
+                movableColumns: true,
+                ajaxURL: '/Student/LoadData',
+                paginationMode: "remote",
+                paginationSize: 5,
+                paginationInitialPage: 1,
+                paginationSizeSelector: [5, 10, 15, true],
+                paginationCounter: "rows",
+                // dataTree: true,
+                // dataTreeStartExpanded: false,
+                ajaxConfig: "get",
+                ajaxContentType: "json",
 
-                                       ajaxResponse: function (url, params, response) {
-                                           table.setMaxPage(response.last_page);
-                                           console.log("response.last_page", response.last_page);
+                ajaxResponse: function (url, params, response) {
+                    table.setMaxPage(response.last_page);
+                    console.log("response.last_page", response.last_page);
 
-                                           dataLoadExpense = response.std;
-                                            console.log("dataLoadExpense:", dataLoadExpense);
+                    dataLoadExpense = response.std;
+                    console.log("dataLoadExpense:", dataLoadExpense);
 
-                                           return {
+                    return {
+                        data: dataLoadExpense,
+                        last_page: response.last_page,
+                    };
+                },
+                columns: [
+                    { title: "Id", field: "id", sorter: "number" },
+                    { title: "Name", field: "name", sorter: "string" },
+                    { title: "Department", field: "dpt.name" },
+                    {
+                        title: "Actions", formatter: function (cell) {
+                            var std = cell.getRow().getData().id;
+                            return "<button class='btn-edit btn-primary btn-sm' data-id='" + cell.getRow().getData().id + "'>Edit</button>" +
+                                "<button class='btn-delete btn-danger btn-sm' data-id='" + cell.getRow().getData().id + "'>Delete</button>";
+                        }
+                    }
+                ]
+            });
+        };
 
-                                               data: dataLoadExpense,
-                                               last_page: response.last_page,
-
-                                           };
-                                       },
-                        columns: [
-                            { title: "Id", field: "id", sorter: "number" },
-                            { title: "Name", field: "name", sorter: "string" },
-                            { title: "Department", field: "dpt.name" },
-                            { title: "Actions", formatter: function (cell) {
-                                var std = cell.getRow().getData().id;
-                                    return "<button class='btn-edit btn-primary btn-sm' data-id='" + cell.getRow().getData().id + "'>Edit</button>" +
-                                        "<button class='btn-delete btn-danger btn-sm' data-id='" + cell.getRow().getData().id + "'>Delete</button>";
-                                }
-                            }
-
-
-                        ]
-
-
-                    });
-                };
             
     </script>
 }
