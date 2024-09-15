@@ -5,23 +5,54 @@
 }
 
 @model Training2._1.Models.Student
-<form asp-action="Edit">
+<form id="editStudentForm">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
-        <input asp-for="Name" class="form-control" value="@ViewBag.Student.Name" />
+        <input asp-for="Name" class="form-control" id="Name" value="@ViewBag.Student.Name" />
         <span asp-validation-for="Name" class="text-danger"></span>
-        <input type="hidden" asp-for="Id" value="@ViewBag.Student.Id" />
+        <input type="hidden" asp-for="Id" id="Id" value="@ViewBag.Student.Id" />
     </div>
 
     <div class="form-group">
         <label asp-for="DptId" class="control-label">Department</label>
-        <select asp-for="DptId" class="form-control" asp-items="@ViewBag.Dept">
-           
+        <select asp-for="DptId" class="form-control" id="DptId" asp-items="@ViewBag.Dept">
             <option value="">@ViewBag.Student.Dpt.Name</option>
         </select>
         <span asp-validation-for="DptId" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-info">Update</button>
+    <button type="submit" class="btn btn-info" id="submitBtn">Update</button>
 </form>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#editStudentForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Gather form data
+            var formData = {
+                Id: $('#Id').val(),
+                Name: $('#Name').val(),
+                DptId: $('#DptId').val()
+            };
+
+            $.ajax({
+                url: "https://localhost:44370/api/api/Update",
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData), // Send the data as JSON
+                success: function (response) {
+                    alert('Student updated successfully');
+                    // Optionally, redirect or update the page after successful update
+                    window.location.href = "/Student/Index"; // Redirect to the index page
+                },
+                error: function (xhr, status, error) {
+                    // Handle errors (optional)
+                    console.log(xhr.responseText);
+                    alert('An error occurred while updating the student.');
+                }
+            });
+        });
+    });
+</script>

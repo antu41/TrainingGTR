@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Training2.1.bundle.scp.css"
     },
     {
+      "Id": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\wwwroot\\Excel\\Test.xlsx",
+      "PackagePath": "staticwebassets\\Excel\\Test.xlsx"
+    },
+    {
       "Id": "D:\\Antu\\Training2.1\\Training2.1\\Training2.1\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

@@ -13,8 +13,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDbContext>(o=>o.UseSqlServer(builder.Configuration.GetConnectionString("dbcs")));
 
 builder.Services.AddTransient<IStudentRepo, StudentRepo>();
-builder.Services.AddTransient<ITeacherRepo, TeaherRepo>();
+builder.Services.AddTransient<ITeacherRepo, TeacherRepo>();
 builder.Services.AddTransient<IDepartmentRepo, DepartmentRepo>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
@@ -35,6 +36,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Student}/{action=Create}/{id?}");
+    pattern: "{controller=Student}/{action=Index}/{id?}");
 
 app.Run();

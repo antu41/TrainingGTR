@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
+using OfficeOpenXml;
+using System.Data;
+using System.Data.OleDb;
 using System.Linq.Expressions;
+using Training2._1.Data;
 using Training2._1.Models;
 using Training2._1.Repo.Interface;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Training2._1.Controllers
 {
@@ -11,11 +16,13 @@ namespace Training2._1.Controllers
     {
         private readonly IStudentRepo repo;
         private readonly IDepartmentRepo drepo;
+        private readonly IConfiguration config;
 
-        public StudentController(IStudentRepo Repo, IDepartmentRepo Drepo)
+        public StudentController(IStudentRepo Repo, IDepartmentRepo Drepo, IConfiguration config)
         {
             this.repo = Repo;
             drepo = Drepo;
+            this.config = config;
         }
         //public IActionResult Index()
         //{
@@ -26,8 +33,9 @@ namespace Training2._1.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var studentsWithDept = repo.WithDept().ToList();
-            return View(studentsWithDept);
+            //var studentsWithDept = repo.WithDept().ToList();
+            //return View(studentsWithDept);
+            return View();
         }
 
 
@@ -59,30 +67,162 @@ namespace Training2._1.Controllers
         }
 
 
-        [HttpPost]
-        public IActionResult Create(Student item)
+        //[HttpPost]
+        //public IActionResult Create(Student item)
+        //{
+        //    if(ModelState.IsValid)
+        //    {     
+        //    repo.Add(item);
+        //    repo.Save();
+        //    return RedirectToAction("Create");
+        //    }
+
+        //    return View(item);
+
+        //}
+
+
+
+        //public IActionResult Delete(int Id)
+        //{
+        //    //Expression<Func<Student, bool>> predicate = s => s.Id == Id;
+        //    //repo.Delete(predicate);
+        //    //repo.Save();
+        //    //return RedirectToAction("Index");
+            
+
+        //}
+
+
+        public IActionResult Upload()
         {
-            if(ModelState.IsValid)
-            {     
-            repo.Add(item);
-            repo.Save();
-            return RedirectToAction("Create");
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Upload(IFormFile file)
+        {
+            try
+            {
+                if (file != null && file.Length > 0)
+                {
+                    // Define the path to save the uploaded file
+                    var mainPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Excel");
+                    if (!Directory.Exists(mainPath))
+                    {
+                        Directory.CreateDirectory(mainPath);
+                    }
+                    var filePath = Path.Combine(mainPath, file.FileName);
+
+                    // Save the uploaded file to the server
+                    using (FileStream stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    // Define connection string based on file extension
+                    string extension = Path.GetExtension(filePath);
+                    string conString = string.Empty;
+                    switch (extension)
+                    {
+                        case ".xls":
+                            conString = $"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={filePath};Extended Properties='Excel 8.0;HDR=Yes;'";
+                            break;
+                        case ".xlsx":
+                            conString = $"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={filePath};Extended Properties='Excel 12.0 Xml;HDR=Yes;'";
+                            break;
+                        default:
+                            throw new Exception("Invalid file format");
+                    }
+
+                    // Read data from Excel file into DataTable
+                    DataTable dt = new DataTable();
+                    using (OleDbConnection conExcel = new OleDbConnection(conString))
+                    {
+                        using (OleDbCommand cmdExcel = new OleDbCommand())
+                        {
+                            using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
+                            {
+                                cmdExcel.Connection = conExcel;
+                                conExcel.Open();
+                                DataTable dtExcelSchema = conExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                                string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                                cmdExcel.CommandText = $"SELECT * FROM [{sheetName}]";
+                                odaExcel.SelectCommand = cmdExcel;
+                                odaExcel.Fill(dt);
+                                conExcel.Close();
+                            }
+                        }
+                    }
+
+                    // Create a mapping of department names to IDs
+                    Dictionary<string, int> departmentMapping = new Dictionary<string, int>();
+                    string dbConString = config.GetConnectionString("dbcs");
+                    using (SqlConnection con = new SqlConnection(dbConString))
+                    {
+                        con.Open();
+                        using (SqlCommand cmd = new SqlCommand("SELECT Id, Name FROM Departments", con))
+                        {
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    departmentMapping.Add(reader["Name"].ToString(), (int)reader["Id"]);
+                                }
+                            }
+                        }
+                    }
+
+                    // Transform the DataTable
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string departmentName = row["Department"].ToString();
+                        if (departmentMapping.ContainsKey(departmentName))
+                        {
+                            row["Department"] = departmentMapping[departmentName];
+                        }
+                        else
+                        {
+                            throw new Exception($"Department '{departmentName}' not found in the database.");
+                        }
+                    }
+
+                    // Perform the bulk copy
+                    using (SqlConnection con = new SqlConnection(dbConString))
+                    {
+                        using (SqlBulkCopy sqlBulkCopy = new SqlBulkCopy(con))
+                        {
+                            sqlBulkCopy.DestinationTableName = "Students";
+                            sqlBulkCopy.ColumnMappings.Add("Name", "Name");
+                            sqlBulkCopy.ColumnMappings.Add("Department", "DptId");
+
+                            con.Open();
+                            sqlBulkCopy.WriteToServer(dt);
+                            con.Close();
+                        }
+                    }
+
+                    ViewBag.message = "Uploaded and Saved!";
+                    return RedirectToAction("Create");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                string msg = ex.Message;
+                ViewBag.message = "An error occurred: " + msg;
             }
 
-            return View(item);
-            
+            return View();
         }
 
 
 
-        public IActionResult Delete(int Id)
-        {
-            Expression<Func<Student,bool>>predicate = s => s.Id == Id;
-            repo.Delete(predicate);
-            repo.Save();
-            return RedirectToAction("Index");
 
-        }
+
+
 
         public IActionResult Edit(int Id)
         {   

@@ -4,9 +4,9 @@ using Training2._1.Repo.Interface;
 
 namespace Training2._1.Repo.Implement
 {
-    public class TeaherRepo : MainRepo<Teacher>, ITeacherRepo
+    public class TeacherRepo : MainRepo<Teacher>, ITeacherRepo
     {
-        public TeaherRepo(MyDbContext db) : base(db)
+        public TeacherRepo(MyDbContext db) : base(db)
         {
         }
     }

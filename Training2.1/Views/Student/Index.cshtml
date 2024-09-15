@@ -1,7 +1,4 @@
-﻿@model List<Training2._1.Models.Student>
-
-
-<link href="~/css/style.css" rel="stylesheet" />
+﻿<link href="~/css/style.css" rel="stylesheet" />
 <div class="container">
     <div class="row">
         <div class="col-10 offset-1">
@@ -18,25 +15,72 @@
                     </tr>
                 </thead>
                 <tbody id="tblBody">
-                    @foreach (var student in Model)
-                    {
-                        <tr>
-                            <td>@student.Id</td>
-                            <td>@student.Name</td>
-                            <td>@(student.Dpt != null ? student.Dpt.Name : "N/A")</td>
-                            <td>
-                                <a class="btn btn-primary m-1" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
-                                <a class="btn btn-danger m-1" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Delete</a>
-                            </td>
-                        </tr>
-
-                    }
+                    <!-- Table body will be populated with AJAX -->
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Fetching data via AJAX and populating the table
+        function loadStudents() {
+            $.ajax({
+                url: "https://localhost:44370/api/api/WithDept",
+                method: "GET",
+                contentType: "application/json",
+                success: function (data) {
+                    var tableBody = $('#tblBody');
+                    tableBody.empty(); // Clear the table body
 
+                    $.each(data, function (index, student) {
+                        var department = student.dpt ? student.dpt.name : "N/A";
+                        var row = `<tr data-id="${student.id}">
+                                          <td>${student.id}</td>
+                                          <td>${student.name}</td>
+                                          <td>${department}</td>
+                                          <td>
+                                              <a class="btn btn-primary m-1" href="/Student/Edit/${student.id}">Edit</a> |
+                                              <button class="btn btn-danger m-1 delete-btn" data-id="${student.id}">Delete</button>
+                                          </td>
+                                       </tr>`;
+                        tableBody.append(row);
+                    });
 
+                    // Attach the delete functionality to each delete button
+                    $('.delete-btn').click(function () {
+                        var studentId = $(this).data('id');
+                        deleteStudent(studentId);
+                    });
+                },
+                error: function (error) {
+                    console.error("Error fetching data from API", error);
+                }
+            });
+        }
+
+        // AJAX call to delete a student
+        function deleteStudent(id) {
+            if (confirm("Are you sure you want to delete this student?")) {
+                $.ajax({
+                    url: `https://localhost:44370/api/api/Delete/${id}`,
+                    method: "DELETE",
+                    success: function () {
+                        // On successful delete, reload the table
+                        alert("Student deleted successfully.");
+                        loadStudents();
+                    },
+                    error: function (error) {
+                        console.error("Error deleting student", error);
+                        alert("An error occurred while trying to delete the student.");
+                    }
+                });
+            }
+        }
+
+        // Load the students on page load
+        loadStudents();
+    });
+</script>
