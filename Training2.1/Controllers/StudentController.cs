@@ -67,19 +67,19 @@ namespace Training2._1.Controllers
         }
 
 
-        //[HttpPost]
-        //public IActionResult Create(Student item)
-        //{
-        //    if(ModelState.IsValid)
-        //    {     
-        //    repo.Add(item);
-        //    repo.Save();
-        //    return RedirectToAction("Create");
-        //    }
+        [HttpPost]
+        public IActionResult Create(Student item)
+        {
+            if (ModelState.IsValid)
+            {
+                repo.Add(item);
+                repo.Save();
+                return RedirectToAction("Index");
+            }
 
-        //    return View(item);
+            return View(item);
 
-        //}
+        }
 
 
 
@@ -89,7 +89,7 @@ namespace Training2._1.Controllers
         //    //repo.Delete(predicate);
         //    //repo.Save();
         //    //return RedirectToAction("Index");
-            
+
 
         //}
 

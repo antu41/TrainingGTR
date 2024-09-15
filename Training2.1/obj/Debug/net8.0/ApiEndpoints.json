@@ -1,6 +1,22 @@
 [
   {
     "ContainingType": "Training2._1.Controllers.APIController",
+    "Method": "Create",
+    "RelativePath": "api/API/Create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "item",
+        "Type": "Training2._1.Models.Student",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Training2._1.Controllers.APIController",
     "Method": "Delete",
     "RelativePath": "api/API/Delete/{Id}",
     "HttpMethod": "DELETE",

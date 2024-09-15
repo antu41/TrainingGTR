@@ -49,5 +49,20 @@ namespace Training2._1.Controllers
 
         }
 
+        [HttpPost]
+        [Route("Create")]
+        public IActionResult Create(Student item)
+        {
+            if (ModelState.IsValid)
+            {
+                unitOfWork.stdRepository.Add(item);
+                unitOfWork.Save();
+              //  return RedirectToAction("Create");
+            }
+
+            return BadRequest();
+
+        }
+
     }
 }
